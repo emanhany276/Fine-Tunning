@@ -5,6 +5,7 @@ from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
 from tensorflow.keras.models import Model
 from tensorflow.data import AUTOTUNE
 from tensorflow.keras.applications.resnet50 import preprocess_input
+import matplotlib.pyplot as plt
 
 # Set parameters
 img_size = (224, 224)
@@ -131,3 +132,36 @@ model.save("fine_tuned.h5")
 test_loss, test_acc = model.evaluate(test_data_prepared)
 print(f"Test Accuracy: {test_acc:.4f}")
 
+
+# ✅ Plot Accuracy and Loss
+def plot_metrics(history, history_fine=None):
+    plt.figure(figsize=(12, 5))
+
+    # Plot Accuracy
+    plt.subplot(1, 2, 1)
+    plt.plot(history.history['accuracy'], label='Train Accuracy')
+    plt.plot(history.history['val_accuracy'], label='Val Accuracy')
+    if history_fine:
+        plt.plot(history_fine.history['accuracy'], label='Fine-tune Train Accuracy', linestyle='dashed')
+        plt.plot(history_fine.history['val_accuracy'], label='Fine-tune Val Accuracy', linestyle='dashed')
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.legend()
+    plt.title("Model Accuracy")
+
+    # Plot Loss
+    plt.subplot(1, 2, 2)
+    plt.plot(history.history['loss'], label='Train Loss')
+    plt.plot(history.history['val_loss'], label='Val Loss')
+    if history_fine:
+        plt.plot(history_fine.history['loss'], label='Fine-tune Train Loss', linestyle='dashed')
+        plt.plot(history_fine.history['val_loss'], label='Fine-tune Val Loss', linestyle='dashed')
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.legend()
+    plt.title("Model Loss")
+
+    plt.show()
+
+# Call function to plot metrics
+plot_metrics(history, history_fine)
