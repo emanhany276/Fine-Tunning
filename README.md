@@ -76,3 +76,5 @@ streamlit run app.py
 - `OLP` (Oral Lichen Planus)
 - `OT` (Other Condition)
 
+### epochs
+![output layer](https://github.com/user-attachments/assets/0a0da9cb-7b7b-426f-9030-8bece42cdafd)
