@@ -78,7 +78,6 @@ inputs = keras.Input(shape=(224, 224, 3))
 x = base_model(inputs, training=False)
 x = GlobalAveragePooling2D()(x)
 x = Dropout(0.5)(x)  # Regularization
-outputs = Dense(len(class_names), activation="softmax")  # Multi-class classification
 
 outputs = Dense(len(class_names), activation="softmax")(x)  # ✅ Connect to x
 
